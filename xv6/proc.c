@@ -39,8 +39,7 @@ sem_acquire(int i)
 {
   acquire(&semtable[i].lock);
 
-  if(semtable[i].value <= 0) 
-  {
+  if(semtable[i].value <= 0) {
     struct proc *p = myproc();
     int index = (semtable[i].front_proc_index + semtable[i].procs_queue_size) % MAX_SEMAPHORE_PROC;
     semtable[i].procs_queue_size++;
@@ -58,13 +57,13 @@ sem_release(int i)
   acquire(&semtable[i].lock);
   semtable[i].value++;
 
-  if(semtable[i].value > 0 && semtable[i].procs_queue_size > 0)
-  {
-      int temp_index = semtable[i].front_proc_index;
-      semtable[i].front_proc_index = (semtable[i].front_proc_index + 1) % NPROC;
+  if(semtable[i].value > 0 && semtable[i].procs_queue_size > 0) {
+      int index = semtable[i].front_proc_index;
+      semtable[i].front_proc_index = (semtable[i].front_proc_index + 1) % MAX_SEMAPHORE_PROC;
       semtable[i].procs_queue_size--;
-      wakeup(&semtable[i].queue[temp_index]->pid);
+      wakeup(&semtable[i].queue[index]->pid);
   }
+
 
   release(&semtable[i].lock);
 }

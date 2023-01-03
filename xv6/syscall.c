@@ -148,9 +148,9 @@ static int (*syscalls[])(void) = {
 [SYS_set_a_proc_bjf_params]     sys_set_a_proc_bjf_params,
 [SYS_set_all_bjf_params]        sys_set_all_bjf_params,
 [SYS_print_all_procs]           sys_print_all_procs,
-[SYS_sys_sem_init]              sys_sem_init,
-[SYS_sys_sem_acquire]           sys_sem_acquire,
-[SYS_sys_sem_release]           sys_sem_release,
+[SYS_sem_init]                  sys_sem_init,
+[SYS_sem_acquire]               sys_sem_acquire,
+[SYS_sem_release]               sys_sem_release,
 };
 
 void
