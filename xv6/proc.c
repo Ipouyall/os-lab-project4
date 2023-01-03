@@ -180,7 +180,7 @@ found:
   p->context->eip = (uint)forkret;
 
   p->entered_queue = ticks;
-  p->queue = 2;
+  p->queue = 1;
   p->executed_cycle = 0;
   p->priority_ratio = 1;
   p->arrival_time_ratio = 1;
