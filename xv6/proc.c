@@ -10,6 +10,8 @@
 #define STARVING_THRESHOLD 8000
 #define MIN_BJF_RANK 1000000
 #define DEFAULT_MAX_TICKETS 30
+#define MAX_SEMAPHORE_PROC NPROC
+#define MAX_SEMAPHORE 10
 
 struct {
   struct spinlock lock;
@@ -18,22 +20,53 @@ struct {
 
 static struct proc *initproc;
 
-void
-sem_init(int i, int v)
-{
+struct semaphore {
+  int value, front_proc_index, procs_queue_size;
+  struct proc *queue[MAX_SEMAPHORE_PROC];
+  struct spinlock lock;
+} semtable[MAX_SEMAPHORE];
 
+void
+sem_init(int i, int value)
+{
+  semtable[i].value = value;
+  semtable[i].front_proc_index = 0;
+  semtable[i].procs_queue_size = 0;
 }
 
 void
 sem_acquire(int i)
 {
-  
+  acquire(&semtable[i].lock);
+
+  if(semtable[i].value <= 0) 
+  {
+    struct proc *p = myproc();
+    int index = (semtable[i].front_proc_index + semtable[i].procs_queue_size) % MAX_SEMAPHORE_PROC;
+    semtable[i].procs_queue_size++;
+    semtable[i].queue[index] = p;
+    sleep(&p->pid, &semtable[i].lock);
+  }
+  semtable[i].value--;
+
+  release(&semtable[i].lock);
 }
 
-void
+void 
 sem_release(int i)
 {
-  
+  acquire(&semtable[i].lock);
+  semtable[i].value++;
+
+  if(semtable[i].value > 0 && semtable[i].procs_queue_size > 0)
+  {
+      int temp_index = semtable[i].front_proc_index;
+      semtable[i].front_proc_index = (semtable[i].front_proc_index + 1) % NPROC;
+      semtable[i].procs_queue_size--;
+      wakeup(&semtable[i].queue[temp_index]->pid);
+  }
+
+  release(&semtable[i].lock);
 }
 
 int nextpid = 1;
