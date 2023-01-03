@@ -193,6 +193,7 @@ UPROGS=\
 	_set_proc_queue\
 	_foo\
 	_print_procs\
+	_phiisofs\
 
 
 fs.img: mkfs README $(UPROGS)
@@ -265,7 +266,7 @@ EXTRA=\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c prime_numbers.c test_getpid.c\
 	test_find_largest_prime_factor.c\
-	set_a_proc_bjf_params.c set_all_bjf_params.c set_lottery_params.c set_proc_queue.c foo.c print_procs.c\
+	set_a_proc_bjf_params.c set_all_bjf_params.c set_lottery_params.c set_proc_queue.c foo.c print_procs.c phiisofs.c\
     README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 

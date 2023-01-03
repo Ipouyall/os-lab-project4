@@ -11,7 +11,7 @@
 #define MIN_BJF_RANK 1000000
 #define DEFAULT_MAX_TICKETS 30
 #define MAX_SEMAPHORE_PROC NPROC
-#define MAX_SEMAPHORE 10
+#define MAX_SEMAPHORE 5
 
 struct {
   struct spinlock lock;
