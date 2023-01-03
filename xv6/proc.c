@@ -11,7 +11,7 @@
 #define MIN_BJF_RANK 1000000
 #define DEFAULT_MAX_TICKETS 30
 #define MAX_SEMAPHORE_PROC NPROC
-#define MAX_SEMAPHORE 10
+#define MAX_SEMAPHORE 5
 
 struct {
   struct spinlock lock;
@@ -39,8 +39,7 @@ sem_acquire(int i)
 {
   acquire(&semtable[i].lock);
 
-  if(semtable[i].value <= 0) 
-  {
+  if(semtable[i].value <= 0) {
     struct proc *p = myproc();
     int index = (semtable[i].front_proc_index + semtable[i].procs_queue_size) % MAX_SEMAPHORE_PROC;
     semtable[i].procs_queue_size++;
@@ -58,13 +57,13 @@ sem_release(int i)
   acquire(&semtable[i].lock);
   semtable[i].value++;
 
-  if(semtable[i].value > 0 && semtable[i].procs_queue_size > 0)
-  {
-      int temp_index = semtable[i].front_proc_index;
-      semtable[i].front_proc_index = (semtable[i].front_proc_index + 1) % NPROC;
+  if(semtable[i].value > 0 && semtable[i].procs_queue_size > 0) {
+      int index = semtable[i].front_proc_index;
+      semtable[i].front_proc_index = (semtable[i].front_proc_index + 1) % MAX_SEMAPHORE_PROC;
       semtable[i].procs_queue_size--;
-      wakeup(&semtable[i].queue[temp_index]->pid);
+      wakeup(&semtable[i].queue[index]->pid);
   }
+
 
   release(&semtable[i].lock);
 }
@@ -181,7 +180,7 @@ found:
   p->context->eip = (uint)forkret;
 
   p->entered_queue = ticks;
-  p->queue = 2;
+  p->queue = 1;
   p->executed_cycle = 0;
   p->priority_ratio = 1;
   p->arrival_time_ratio = 1;

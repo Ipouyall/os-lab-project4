@@ -29,6 +29,6 @@
 #define SYS_set_a_proc_bjf_params      28
 #define SYS_set_all_bjf_params         29
 #define SYS_print_all_procs            30
-#define SYS_sys_sem_init               31
-#define SYS_sys_sem_acquire            32
-#define SYS_sys_sem_release            33
+#define SYS_sem_init                   31
+#define SYS_sem_acquire                32
+#define SYS_sem_release                33
