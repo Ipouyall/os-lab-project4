@@ -265,8 +265,8 @@ EXTRA=\
 	mkfs.c ulib.c user.h cat.c echo.c forktest.c grep.c kill.c\
 	ln.c ls.c mkdir.c rm.c stressfs.c usertests.c wc.c zombie.c\
 	printf.c umalloc.c prime_numbers.c test_getpid.c\
-	test_find_largest_prime_factor.c\
-	set_a_proc_bjf_params.c set_all_bjf_params.c set_lottery_params.c set_proc_queue.c foo.c print_procs.c phillsofs.c\
+	test_find_largest_prime_factor.c phillsofs.c\
+	set_a_proc_bjf_params.c set_all_bjf_params.c set_lottery_params.c set_proc_queue.c foo.c print_procs.c \
     README dot-bochsrc *.pl toc.* runoff runoff1 runoff.list\
 	.gdbinit.tmpl gdbutil\
 
