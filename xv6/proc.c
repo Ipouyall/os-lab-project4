@@ -18,6 +18,24 @@ struct {
 
 static struct proc *initproc;
 
+void
+sem_init(int i, int v)
+{
+
+}
+
+void
+sem_acquire(int i)
+{
+  
+}
+
+void
+sem_release(int i)
+{
+  
+}
+
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
