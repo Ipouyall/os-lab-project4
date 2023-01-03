@@ -32,7 +32,9 @@ void set_lottery_params(int, int);
 void set_a_proc_bjf_params(int, int, int, int);
 void set_all_bjf_params(int, int, int);
 void print_all_procs(void);
-
+void sem_init(int, int);
+void sem_acquire(int);
+void sem_release(int);
 
 // ulib.c
 int stat(const char*, struct stat*);

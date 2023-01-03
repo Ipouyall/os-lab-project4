@@ -161,3 +161,31 @@ sys_print_all_procs(void)
 {
   print_all_procs();
 }
+
+void
+sys_sem_init(void) 
+{
+  int i, v;
+  argint(0, &i);
+  argint(1, &v);
+
+  sem_init(i, v);
+}
+
+void
+sys_sem_acquire(void)
+{
+  int i;
+  argint(0, &i);
+    
+  sem_acquire(i);
+}
+
+void
+sys_sem_release(void)
+{ 
+  int i;
+  argint(0, &i);
+    
+  sem_release(i);
+}
